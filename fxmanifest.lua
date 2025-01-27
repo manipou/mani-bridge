@@ -7,10 +7,11 @@ description "Bridge/Library for ManiMods resources"
 version "1.0.0"
 
 client_scripts {
-    'modules/**/*.lua',
+    'modules/**/client.lua',
 }
 
 server_scripts {
+    'modules/**/server.lua',
 }
 
 shared_scripts {

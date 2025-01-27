@@ -1,3 +1,8 @@
-1. Setup Config
+## Installation Guide
+1. Drop the resource anywhere in the resource folder.
+2. Add ´ensure mani-bridge´ to the server.cfg before any other resource using mani-bridge.
+3. Setup Config.lua
 
-2. Join discord for support: https://discord.gg/qd882rDMyB -> OPEN A TICKET.
+
+## DISCORD SUPPORT
+Join discord for support: https://discord.gg/qd882rDMyB
