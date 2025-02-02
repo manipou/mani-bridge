@@ -9,10 +9,13 @@ CreateThread(function()
     if GetResourceState(supportedCores[Config.Framework]) == 'started' then
         if supportedCores[Config.Framework] == 'es_extended' then
             Core = exports[supportedCores[Config.Framework]]:getSharedObject()
+            Core.Framework = 'esx'
         elseif supportedCores[Config.Framework] == 'qb-core' then
             Core = exports[supportedCores[Config.Framework]]:GetCoreObject()
+            Core.Framework = 'qb'
         elseif supportedCores[Config.Framework] == 'qbx_core' then
             Core = exports[supportedCores[Config.Framework]]:GetCoreObject()
+            Core.Framework = 'qbx'
         end
     end
 end)
