@@ -21,4 +21,5 @@ Config.Inventory = dependencyCheck({
 
 Config.oxOptions = { -- ox_lib usage options
     Notify = true,
+    ProgressBar = 'bar' -- 'bar' or 'circle' - false to disable
 }
