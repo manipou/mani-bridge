@@ -51,3 +51,13 @@ local function progressBar(data, completed, cancelled)
 end
 
 exports('progressBar', progressBar)
+
+local function progressActive()
+    Config.oxOptions.ProgressBar ~= false then
+        return lib.progressActive()
+    else
+        return false -- add custom progress active check
+    end
+end
+
+exports('progressActive', progressActive)
