@@ -17,7 +17,25 @@ Config.Framework = dependencyCheck({
 
 Config.Inventory = dependencyCheck({
     ['ox_inventory'] = 'ox',
+    ['codem-inventory'] = 'codem',
+    ['qb-inventory'] = 'qb',
+    ['ps-inventory'] = 'ps',
+    ['qs-inventory'] = 'qs'
 }) or nil
+
+Config.Dispatch = {
+    resource = dependencyCheck({
+        ['linden_outlawalert'] = 'linden',
+        ['cd_dispatch'] = 'cd',
+        ['ps-dispatch'] = 'ps'
+        ['qs-dispatch'] = 'qs',
+        ['core_dispatch'] = 'core',
+        ['codem-dispatch'] = 'codem',
+        ['origen_police'] = 'origen'
+    }) or nil
+    jobs = { 'police' }, -- If using Origen, add 'police' to the list instead of a table.
+    types = { 'leo' }
+}
 
 Config.oxOptions = { -- ox_lib usage options
     Notify = true,

@@ -6,3 +6,6 @@
 
 ## DISCORD SUPPORT
 Join discord for support: https://discord.gg/qd882rDMyB
+
+## Credit
+Credit to Samuel's Development // SD_Lib. - https://discord.gg/FzPehMQaBQ

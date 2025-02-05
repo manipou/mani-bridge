@@ -1,25 +1,23 @@
 local function setMetaData(src, metaName, metaData)
+    local PlayerData = GetPlayer(src)
     if Config.Framework == 'esx' then
-        local xPlayer = Core.GetPlayerFromId(src)
-        xPlayer.setMeta(metaName, metaData)
+        PlayerData.setMeta(metaName, metaData)
     elseif Config.Framework == 'qb' then
-        local Player = Core.Functions.GetPlayer(src)
-        local metadata = Player.PlayerData.metadata
+        local metadata = PlayerData.PlayerData.metadata
         metadata[metaName] = metaData
-        Player.Functions.SetMetaData(metaName, metadata[metaName])
+        PlayerData.Functions.SetMetaData(metaName, metadata[metaName])
     end
 end
 
 exports('setMetaData', setMetaData)
 
 local function getMetaData(src, metaName, type)
+    local PlayerData = GetPlayer(src)
     if Config.Framework == 'esx' then
-        local xPlayer = Core.GetPlayerFromId(src)
-        if xPlayer.getMeta(metaName) == nil then xPlayer.setMeta(metaName, type == 'int' and 0 or type == 'string' and '' or type == 'table' and {}) end
-        return xPlayer.getMeta(metaName)
+        if PlayerData.getMeta(metaName) == nil then PlayerData.setMeta(metaName, type == 'int' and 0 or type == 'string' and '' or type == 'table' and {}) end
+        return PlayerData.getMeta(metaName)
     elseif Config.Framework == 'qb' then
-        local Player = Core.Functions.GetPlayer(src)
-        local metadata = Player.PlayerData.metadata
+        local metadata = PlayerData.PlayerData.metadata
         return metadata[metaName]
     end
 end
