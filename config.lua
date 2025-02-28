@@ -27,12 +27,12 @@ Config.Dispatch = {
     resource = dependencyCheck({
         ['linden_outlawalert'] = 'linden',
         ['cd_dispatch'] = 'cd',
-        ['ps-dispatch'] = 'ps'
+        ['ps-dispatch'] = 'ps',
         ['qs-dispatch'] = 'qs',
         ['core_dispatch'] = 'core',
         ['codem-dispatch'] = 'codem',
         ['origen_police'] = 'origen'
-    }) or nil
+    }) or nil,
     jobs = { 'police' }, -- If using Origen, add 'police' to the list instead of a table.
     types = { 'leo' }
 }
