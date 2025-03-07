@@ -14,7 +14,7 @@ CreateThread(function()
             Core = exports[supportedCores[Config.Framework]]:GetCoreObject()
             Core.Framework = 'qb'
         elseif supportedCores[Config.Framework] == 'qbx_core' then
-            Core = exports[supportedCores[Config.Framework]]:GetCoreObject()
+            Core = exports[supportedCores['qb-core']]:GetCoreObject()
             Core.Framework = 'qbx'
         end
     end
