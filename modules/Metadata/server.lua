@@ -71,6 +71,9 @@ AddEventHandler('playerDropped', function(reason)
     local src = source
     local identifier = charIds[src]
     if not identifier then return end
+
+    Wait(250) -- Waiting just in case other scripts are saving metadata when the player drops
+
     MySQL.Async.execute('REPLACE INTO `mani_metadata` (`identifier`, `metadata`) VALUES (@identifier, @metadata)', {
         ['@identifier'] = identifier,
         ['@metadata'] = json.encode(metadata[identifier]) or {},
