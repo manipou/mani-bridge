@@ -1,25 +1,79 @@
-local function setMetaData(src, metaName, metaData)
-    local PlayerData = GetPlayer(src)
-    if Config.Framework == 'esx' then
-        PlayerData.setMeta(metaName, metaData)
-    elseif Config.Framework == 'qb' then
-        local metadata = PlayerData.PlayerData.metadata
-        metadata[metaName] = metaData
-        PlayerData.Functions.SetMetaData(metaName, metadata[metaName])
+-- Examples
+-- exports['mani-bridge']:setMetaData(src, 'armordata', armorData)
+-- exports['mani-bridge']:getMetaData(src, 'armordata', 'table')
+
+local metadata, charIds = {}, {}
+
+CreateThread(function()
+    MySQL.prepare([[
+        CREATE TABLE IF NOT EXISTS `mani_metadata` (
+            `identifier` varchar(255) NOT NULL UNIQUE,
+            `metadata` longtext NOT NULL,
+            PRIMARY KEY (`identifier`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ]])
+
+    Wait(500)
+
+    MySQL.prepare([[
+        SELECT * FROM `mani_metadata`;
+    ]], {}, function(result)
+        if result then
+            for i = 1, #result do
+                metadata[result[i].identifier] = json.decode(result[i].metadata)
+            end
+        end
+    end)
+
+    Wait(500)
+
+    if Core.Framework == 'esx' then
+        RegisterNetEvent('esx:playerLoaded', function(src, xPlayer)
+            local charId = xPlayer.getIdentifier()
+            charIds[src] = charId
+            metadata[charId] = metadata[charId] or {}
+        end) 
+    elseif Core.Framework == 'qb' then
+        RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
+            local charId = Core.Functions.GetPlayer(src).PlayerData.citizenid
+            charIds[src] = charId
+            metadata[charId] = metadata[charId] or {}
+        end)
+    elseif Core.Framework == 'qbx' then
+        RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
+            local charId = exports['qbx_core']:GetPlayer(src).PlayerData.citizenid
+            charIds[src] = charId
+            metadata[charId] = metadata[charId] or {}
+        end)
     end
+end)
+
+local function setMetaData(src, metaName, metaData)
+    local charId = charIds[src]
+    metadata[charId][metaName] = metaData
 end
 
 exports('setMetaData', setMetaData)
 
 local function getMetaData(src, metaName, type)
-    local PlayerData = GetPlayer(src)
-    if Config.Framework == 'esx' then
-        if PlayerData.getMeta(metaName) == nil then PlayerData.setMeta(metaName, type == 'int' and 0 or type == 'string' and '' or type == 'table' and {}) end
-        return PlayerData.getMeta(metaName)
-    elseif Config.Framework == 'qb' then
-        local metadata = PlayerData.PlayerData.metadata
-        return metadata[metaName]
-    end
+    local charId = charIds[src]
+    if not metadata[charId][metaName] then metadata[charId][metaName] = type == 'int' and 0 or type == 'string' and '' or type == 'table' and {} end
+    return metadata[charId][metaName]
 end
 
 exports('getMetaData', getMetaData)
+
+lib.callback.register('mani-bridge:server:getMetaData', function(src, metaName, type)
+    return getMetaData(src, metaName, type)
+end)
+
+AddEventHandler('playerDropped', function(reason)
+    local src = source
+    local identifier = charIds[src]
+    if not identifier then return end
+    MySQL.Async.execute('REPLACE INTO `mani_metadata` (`identifier`, `metadata`) VALUES (@identifier, @metadata)', {
+        ['@identifier'] = identifier,
+        ['@metadata'] = json.encode(metadata[identifier]) or {},
+    })
+    lib.print.info('Metadata successfully saved on player: ' .. src)
+end)
