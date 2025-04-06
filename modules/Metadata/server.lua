@@ -27,19 +27,19 @@ CreateThread(function()
 
     Wait(500)
 
-    if Core.Framework == 'esx' then
+    if Config.Framework == 'esx' then
         RegisterNetEvent('esx:playerLoaded', function(src, xPlayer)
             local charId = xPlayer.getIdentifier()
             charIds[src] = charId
             metadata[charId] = metadata[charId] or {}
         end) 
-    elseif Core.Framework == 'qb' then
+    elseif Config.Framework == 'qb' then
         RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
             local charId = Core.Functions.GetPlayer(src).PlayerData.citizenid
             charIds[src] = charId
             metadata[charId] = metadata[charId] or {}
         end)
-    elseif Core.Framework == 'qbx' then
+    elseif Config.Framework == 'qbx' then
         RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
             local charId = exports['qbx_core']:GetPlayer(src).PlayerData.citizenid
             charIds[src] = charId
