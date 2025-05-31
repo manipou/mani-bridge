@@ -14,7 +14,7 @@ CreateThread(function()
     MySQL.prepare([[
         SELECT * FROM `mani_metadata`;
     ]], {}, function(result)
-        if next(result) then
+        if result and next(result) then
             for i = 1, #result do
                 metadata[result[i].identifier] = json.decode(result[i].metadata)
             end
@@ -23,13 +23,13 @@ CreateThread(function()
 
     Wait(500)
 
-    if Core.Framework == 'esx' then
+    if Config.Framework == 'esx' then
         RegisterNetEvent('esx:playerLoaded', function(src, xPlayer)
             local charId = xPlayer.getIdentifier()
             charIds[src] = charId
             metadata[charId] = metadata[charId] or {}
         end) 
-    elseif Core.Framework == 'qb' or Core.Framework == 'qbx' then
+    elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
         RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
             local charId = GetPlayer(src).PlayerData.citizenid
             charIds[src] = charId

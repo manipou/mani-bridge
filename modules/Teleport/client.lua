@@ -6,7 +6,9 @@ local function TeleportEntity(entity, coords, transition)
 
     if DoesEntityExist(entity) then
         RequestCollisionAtCoord(coords.x, coords.y, coords.z)
-        while not HasCollisionLoadedAroundEntity(entity) do Wait(0) end
+        while not HasCollisionLoadedAroundEntity(entity) do
+            Wait(0)
+        end
 
         SetEntityCoords(entity, coords.x, coords.y, coords.z, false, false, false, false)
         SetEntityHeading(entity, coords.w or coords.heading or 0.0)
