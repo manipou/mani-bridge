@@ -1,7 +1,3 @@
--- Examples
--- exports['mani-bridge']:setMetaData(src, 'armordata', armorData)
--- exports['mani-bridge']:getMetaData(src, 'armordata', 'table')
-
 local metadata, charIds = {}, {}
 
 CreateThread(function()
@@ -18,7 +14,7 @@ CreateThread(function()
     MySQL.prepare([[
         SELECT * FROM `mani_metadata`;
     ]], {}, function(result)
-        if result then
+        if next(result) then
             for i = 1, #result do
                 metadata[result[i].identifier] = json.decode(result[i].metadata)
             end
@@ -27,21 +23,15 @@ CreateThread(function()
 
     Wait(500)
 
-    if Config.Framework == 'esx' then
+    if Core.Framework == 'esx' then
         RegisterNetEvent('esx:playerLoaded', function(src, xPlayer)
             local charId = xPlayer.getIdentifier()
             charIds[src] = charId
             metadata[charId] = metadata[charId] or {}
         end) 
-    elseif Config.Framework == 'qb' then
+    elseif Core.Framework == 'qb' or Core.Framework == 'qbx' then
         RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
-            local charId = Core.Functions.GetPlayer(src).PlayerData.citizenid
-            charIds[src] = charId
-            metadata[charId] = metadata[charId] or {}
-        end)
-    elseif Config.Framework == 'qbx' then
-        RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
-            local charId = exports['qbx_core']:GetPlayer(src).PlayerData.citizenid
+            local charId = GetPlayer(src).PlayerData.citizenid
             charIds[src] = charId
             metadata[charId] = metadata[charId] or {}
         end)
@@ -50,10 +40,20 @@ end)
 
 local function setMetaData(src, metaName, metaData)
     local charId = charIds[src]
+    if not charId then return end
     metadata[charId][metaName] = metaData
 end
 
 exports('setMetaData', setMetaData)
+
+local function addMetaData(src, metaName, amount)
+    local charId = charIds[src]
+    if not charId then return end
+    metadata[charId][metaName] = metadata[charId][metaName] or 0
+    metadata[charId][metaName] = metadata[charId][metaName] + amount
+end
+
+exports('addMetaData', addMetaData)
 
 local function getMetaData(src, metaName, type)
     local charId = charIds[src]

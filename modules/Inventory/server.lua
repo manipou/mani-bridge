@@ -26,24 +26,28 @@ exports('AddItem', AddItem)
 
 local function RemoveItem(src, item, amount, slot)
     if Config.Inventory == 'ox' then
-        exports['ox_inventory']:RemoveItem(src, item, amount, nil, slot)
+        return exports['ox_inventory']:RemoveItem(src, item, amount, nil, slot)
     elseif Config.Inventory == 'codem' then
-        exports['codem-inventory']:RemoveItem(src, item, amount, slot or false)
+        return exports['codem-inventory']:RemoveItem(src, item, amount, slot or false)
     elseif Config.Inventory == 'qb' then
-        exports['qb-inventory']:RemoveItem(src, item, amount, slot or false, 'mani-bridge:RemoveItem()')
+        return exports['qb-inventory']:RemoveItem(src, item, amount, slot or false, 'mani-bridge:RemoveItem()')
     elseif Config.Inventory == 'ps' then
-        exports['ps-inventory']:RemoveItem(src, item, amount, slot or false, 'mani-bridge:RemoveItem()')
+        return exports['ps-inventory']:RemoveItem(src, item, amount, slot or false, 'mani-bridge:RemoveItem()')
     elseif Config.Inventory == 'qs' then
-        exports['qs-inventory']:RemoveItem(src, item, amount, slot or false)
+        return exports['qs-inventory']:RemoveItem(src, item, amount, slot or false)
     else
         local PlayerData = GetPlayer(src)
         if Config.Framework == 'esx' then
-            PlayerData.removeInventoryItem(item, amount, false, slot or false)
+            return PlayerData.removeInventoryItem(item, amount, false, slot or false)
         elseif Config.Framework == 'qb' then
-            PlayerData.Functions.RemoveItem(item, amount, slot, metadata or false)
-            TriggerClientEvent('inventory:client:ItemBox', src, Core.Shared.Items[item], "remove", amount)
+            if PlayerData.Functions.RemoveItem(item, amount, slot, metadata or false) then
+                TriggerClientEvent('inventory:client:ItemBox', src, Core.Shared.Items[item], "remove", amount)
+                return true
+            end
+            return false
         else
             -- ADD YOUR OWN INVENTORY SYSTEM HERE
+            return false
         end
     end
 end
@@ -101,3 +105,13 @@ local function HasItem(src, item)
 end
 
 exports('HasItem', HasItem)
+
+local function GetItemMetadata(src, slot)
+    if Config.Inventory == 'ox' then
+        return exports['ox_inventory']:GetSlot(src, slot).metadata
+    elseif not Config.Inventory then
+        -- ADD YOUR OWN INVENTORY SYSTEM HERE
+    end
+end
+
+exports('GetItemMetadata', GetItemMetadata)

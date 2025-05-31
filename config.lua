@@ -37,6 +37,14 @@ Config.Dispatch = {
     types = { 'leo' }
 }
 
+Config.Target = dependencyCheck({
+    ['ox_target'] = 'ox',
+}) or nil
+
+Config.Clothing = dependencyCheck({
+    ['rcore_clothing'] = 'rcore',
+}) or nil
+
 Config.oxOptions = { -- ox_lib usage options
     Notify = true,
     ProgressBar = 'bar' -- 'bar' or 'circle' - false to disable
