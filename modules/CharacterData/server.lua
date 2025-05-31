@@ -3,6 +3,8 @@ function GetPlayer(src)
         return Core.GetPlayerFromId(src)
     elseif Config.Framework == 'qb' then
         return Core.Functions.GetPlayer(src)
+    elseif Config.Framework == 'qbx' then
+        return exports['qbx_core']:GetPlayer(src)
     else
         -- ADD CUSTOM FRAMEWORK SUPPORT HERE
     end
