@@ -30,7 +30,8 @@ CreateThread(function()
             metadata[charId] = metadata[charId] or {}
         end) 
     elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
-        RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(src)
+        RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function()
+            local src = source
             local charId = GetPlayer(src).PlayerData.citizenid
             charIds[src] = charId
             metadata[charId] = metadata[charId] or {}
