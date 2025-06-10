@@ -37,17 +37,19 @@ end
 
 exports('CreateVeh', CreateVeh)
 
-local function CreateObj(model, coords)
+local function CreateObj(model, coords, hidden)
     while Creating do Wait(100) end
     Creating = true
 
     lib.requestModel(model)
 
     local object = CreateObjectNoOffset(model, coords.x, coords.y, coords.z, true, true, true)
+    SetEntityVisible(object, not hidden)
+    SetEntityCollision(object, not hidden, true)
     while not DoesEntityExist(object) do Wait(100) end
 
     while not NetworkGetEntityIsNetworked(object) do
-        NetworkRegisterEntityAsNetworked(object);
+        NetworkRegisterEntityAsNetworked(object)
         Wait(0)
     end
 
@@ -58,7 +60,6 @@ local function CreateObj(model, coords)
     SetNetworkIdExistsOnAllMachines(networkID, true)
 
     SetEntityAsMissionEntity(object, true, true)
-    SetEntityVisible(object, true)
     SetEntityHeading(object, coords.w)
 
     local netObj = NetworkGetEntityFromNetworkId(networkID)
