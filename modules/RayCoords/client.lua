@@ -1,4 +1,4 @@
-local KeyBind, PressingE = nil, false
+   local KeyBind, PressingE = nil, false
 
 local function CopyCoords(model, maxDistance, cb, error, zOffset)
     lib.requestModel(model)
@@ -6,7 +6,7 @@ local function CopyCoords(model, maxDistance, cb, error, zOffset)
     PressingE = false
 
     CreateThread(function()
-        Wait(1500)
+        Wait(500)
         KeyBind:disable(false)
     end)
 
@@ -24,7 +24,7 @@ local function CopyCoords(model, maxDistance, cb, error, zOffset)
                 playerCoords = GetEntityCoords(ped)
         
                 if hit then
-                    SetEntityCoords(viewEntity, coords.x, coords.y, coords.z + zOffset or 0, 0.0, 0.0, 0.0, false)
+                    SetEntityCoords(viewEntity, coords.x, coords.y, coords.z + (zOffset or 0), 0.0, 0.0, 0.0, false)
                     SetEntityHeading(viewEntity, heading)
                     SetEntityDrawOutline(viewEntity, true)
                     SetEntityDrawOutlineColor(viewEntity, 255, 255, 0, 255)
@@ -34,17 +34,15 @@ local function CopyCoords(model, maxDistance, cb, error, zOffset)
                     heading = heading + 15
                 elseif IsControlPressed(0, 15) then
                     heading = heading - 15
-                elseif PressingE then
+                elseif PressingE and #(playerCoords - coords) < maxDistance then
                     PressingE = false
-                    heading = GetEntityHeading(viewEntity)
-                    if DoesEntityExist(viewEntity) then
-                        DeleteEntity(viewEntity)
-                    end
-                    cb(vec4(coords.x, coords.y, coords.z + zOffset or 0, heading))
+                    if DoesEntityExist(viewEntity) then DeleteEntity(viewEntity) end
+                    cb(vec4(coords.x, coords.y, coords.z + (zOffset or 0), heading))
                     KeyBind:disable(true)
                     break
                 end
-            Wait(0)
+
+                Wait(0)
             end
         end)
     end)    
