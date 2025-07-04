@@ -39,7 +39,6 @@ Config.Dispatch = {
 
 Config.Target = dependencyCheck({
     ['ox_target'] = 'ox',
-    ['qb-target'] = 'qb',
 }) or nil
 
 Config.Clothing = dependencyCheck({
