@@ -14,3 +14,4 @@ local function Notify(title, message, type, duration)
 end
 
 exports('Notify', Notify)
+RegisterNetEvent('mani-bridge:notify', Notify)

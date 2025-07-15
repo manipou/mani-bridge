@@ -6,11 +6,12 @@ local function FormatTable(options)
             label = options.label,
             item = options.item,
             action = function(entity)
-                options.onSelect({ entity = entity })
+                if options.onSelect then options.onSelect({ entity = entity }) end
             end,
             canInteract = function(entity, distance)
+                if options.canInteract == nil then return true end
                 return options.canInteract(entity, distance)
-            end,
+            end,    
             job = options.groups,
             gang = options.groups,
         }
@@ -22,11 +23,12 @@ local function AddTargetModel(models, options)
         exports['ox_target']:addModel(models, options)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
-        if next(options) then
+        if options[1] and options[1].label then
             for i = 1, #options do FormattedOptions[i] = FormatTable(options[i]) end
         else
-            FormattedOptions = { { FormatTable(options) } }
+            FormattedOptions = { FormatTable(options) }
         end
+
         exports['qb-target']:AddTargetModel(models, {
             options = FormattedOptions,
             distance = FormattedOptions[1].distance
@@ -41,11 +43,12 @@ local function AddBoxTarget(parameters)
         exports['ox_target']:addBoxZone(parameters)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
-        if next(parameters.options) then
+        if parameters.options[1] and parameters.options[1].label then
             for i = 1, #parameters.options do FormattedOptions[i] = FormatTable(parameters.options[i]) end
         else
-            FormattedOptions = { { FormatTable(parameters.options) } }
+            FormattedOptions = { FormatTable(parameters.options) }
         end
+
         exports['qb-target']:AddBoxZone(parameters.name, parameters.coords.xyz, parameters.size.x, parameters.size.y, {
             name = parameters.name,
             heading = parameters.coords.w,
@@ -66,11 +69,12 @@ local function AddLocalEntityTarget(entity, options)
         exports['ox_target']:addLocalEntity(entity, options)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
-        if next(options) then
+        if options[1] and options[1].label then
             for i = 1, #options do FormattedOptions[i] = FormatTable(options[i]) end
         else
-            FormattedOptions = { { FormatTable(options) } }
+            FormattedOptions = { FormatTable(options) }
         end
+
         exports['qb-target']:AddTargetEntity(entity, {
             options = FormattedOptions,
             distance = FormattedOptions[1].distance
@@ -85,11 +89,12 @@ local function AddGlobalVehicleTarget(options)
         exports['ox_target']:addGlobalVehicle(options)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
-        if next(options) then
+        if options[1] and options[1].label then
             for i = 1, #options do FormattedOptions[i] = FormatTable(options[i]) end
         else
-            FormattedOptions = { { FormatTable(options) } }
+            FormattedOptions = { FormatTable(options) }
         end
+
         exports['qb-target']:AddGlobalVehicle({
             options = FormattedOptions,
             distance = FormattedOptions[1].distance
@@ -113,7 +118,7 @@ local function RemoveTargetModel(models, optionNames)
     if Config.Target == 'ox' then
         exports['ox_target']:removeModel(models, optionNames)
     elseif Config.Target == 'qb' then
-        exports['qb-target']:RemoveModel(models, optionNames)
+        exports['qb-target']:RemoveTargetModel(models, optionNames)
     end
 end
 
@@ -123,8 +128,28 @@ local function RemoveLocalEntityTarget(entity)
     if Config.Target == 'ox' then
         exports['ox_target']:removeLocalEntity(entity)
     elseif Config.Target == 'qb' then
-        exports['qb-target']:RemoveTargetModel(entity)
+        exports['qb-target']:RemoveTargetEntity(entity)
     end
 end
 
 exports('RemoveLocalEntityTarget', RemoveLocalEntityTarget)
+
+local function AddGlobalPlayerTarget(options)
+    if Config.Target == 'ox' then
+        exports['ox_target']:addGlobalPlayer(options)
+    elseif Config.Target == 'qb' then
+        local FormattedOptions = {}
+        if options[1] and options[1].label then
+            for i = 1, #options do FormattedOptions[i] = FormatTable(options[i]) end
+        else
+            FormattedOptions = { FormatTable(options) }
+        end
+
+        exports['qb-target']:AddGlobalPlayer({
+            options = FormattedOptions,
+            distance = FormattedOptions[1].distance
+        })
+    end
+end
+
+exports('AddGlobalPlayerTarget', AddGlobalPlayerTarget)

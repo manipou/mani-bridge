@@ -109,7 +109,9 @@ exports('HasItem', HasItem)
 local function GetItemMetadata(src, slot)
     if Config.Inventory == 'ox' then
         return exports['ox_inventory']:GetSlot(src, slot).metadata
-    elseif not Config.Inventory then
+    elseif Config.Inventory == 'qb' then
+        return exports['qb-inventory']:GetItemBySlot(src, slot).info
+    else
         -- ADD YOUR OWN INVENTORY SYSTEM HERE
     end
 end
