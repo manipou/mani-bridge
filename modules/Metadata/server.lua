@@ -81,3 +81,15 @@ AddEventHandler('playerDropped', function(reason)
     })
     lib.print.info('Metadata successfully saved on player: ' .. src)
 end)
+
+RegisterCommand('metaLoad', function(src, args)
+    if Config.Framework == 'esx' then
+        local charId = GetPlayer(src).getIdentifier()
+        charIds[src] = charId
+        metadata[charId] = metadata[charId] or {}
+    elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
+        local charId = GetPlayer(src).PlayerData.citizenid
+        charIds[src] = charId
+        metadata[charId] = metadata[charId] or {}
+    end
+end)

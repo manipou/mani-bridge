@@ -46,7 +46,7 @@ end
 
 exports('AddMoney', AddMoney)
 
-local function RemoveMoney(src, moneyType, amount)
+local function RemoveMoney(src, moneyType, amount) -- Depricated
     local PlayerData = GetPlayer(src)
     if Config.Framework == 'esx' then
         PlayerData.removeAccountMoney(ConvertMoneyType(moneyType), amount)
@@ -58,3 +58,19 @@ local function RemoveMoney(src, moneyType, amount)
 end
 
 exports('RemoveMoney', RemoveMoney)
+
+local function RemoveMoneyAuto(src, types, amount)
+    local PlayerData = GetPlayer(src)
+    if Config.Framework == 'esx' then
+        for i = 1, #types do
+            local moneyType = ConvertMoneyType(types[i])
+            if PlayerData.getAccount(moneyType).money >= amount then
+                PlayerData.removeAccountMoney(moneyType, amount)
+                return true
+            end
+        end
+        return false
+    end
+end
+
+exports('RemoveMoneyAuto', RemoveMoneyAuto)

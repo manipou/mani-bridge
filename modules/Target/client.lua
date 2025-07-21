@@ -104,6 +104,16 @@ end
 
 exports('AddGlobalVehicleTarget', AddGlobalVehicleTarget)
 
+local function RemoveGlobalVehicleTarget(id)
+    if Config.Target == 'ox' then
+        exports['ox_target']:removeGlobalVehicle(id)
+    elseif Config.Target == 'qb' then
+        exports['qb-target']:RemoveGlobalVehicle(id)
+    end
+end
+
+exports('RemoveGlobalVehicleTarget', RemoveGlobalVehicleTarget)
+
 local function RemoveTargetZone(id)
     if Config.Target == 'ox' then
         exports['ox_target']:removeZone(id)

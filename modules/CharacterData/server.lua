@@ -28,3 +28,37 @@ exports('GetGender', GetGender)
 lib.callback.register('mani-bridge:server:getGender', function(src)
     return GetGender(src)
 end)
+
+local function GetPlayerData(src)
+    if Config.Framework == 'esx' then
+        local state = Player(src).state
+
+        return {
+            Job = {
+                name = state.job.name,
+                label = state.job.label,
+                grade = state.job.grade,
+                gradeLabel = state.job.grade_label,
+                isBoss = state.job.grade_name == 'boss'
+            },
+            Identifier = state.identifier
+        }
+    elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
+        local Player = Core.Functions.GetPlayer(src)
+    
+        return {
+            Job = {
+                name = Player.job.name,
+                label = Player.job.label,
+                grade = Player.job.grade.level,
+                gradeLabel = Player.job.grade.name,
+                isBoss = Player.job.isboss
+            },
+            Identifier = Player.citizenid
+        }
+    else
+        -- ADD CUSTOM FRAMEWORK SUPPORT HERE
+    end
+end
+
+exports('GetPlayerData', GetPlayerData)
