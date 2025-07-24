@@ -1,10 +1,8 @@
 local JobCache, LastJobs, PlayerJobs = {}, {}, {}
 
 local function OnJobChange(src, newJob, oldJob)
-    PlayerJobs[src] = newJob.name
-    LastJobs[src] = oldJob.name
-
     if oldJob then
+        LastJobs[src] = oldJob.name
         JobCache[oldJob.name] = JobCache[oldJob.name] or {}
         for i = 1, #JobCache[oldJob.name] do
             if JobCache[oldJob.name][i].Source == src then
@@ -15,6 +13,7 @@ local function OnJobChange(src, newJob, oldJob)
     end
 
     if newJob then
+        PlayerJobs[src] = newJob.name
         JobCache[newJob.name] = JobCache[newJob.name] or {}
         JobCache[newJob.name][#JobCache[newJob.name] + 1] = { Source = src, Grade = newJob.grade }
     end
