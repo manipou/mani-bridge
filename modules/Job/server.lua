@@ -29,7 +29,7 @@ CreateThread(function()
         RegisterNetEvent('QBCore:Server:OnJobUpdate', function(src, job) OnJobChange(src, job, LastJobs[src]) end)
     end
     
-    AddEventHandler('playerDropped', function() OnJobChange(source, nil, PlayerJobs[src] or nil) end)
+    AddEventHandler('playerDropped', function() OnJobChange(source, nil, PlayerJobs[source] or nil) end)
 end)
 
 local function HasJob(src, job)
