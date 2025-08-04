@@ -44,8 +44,8 @@ local function GetPlayerData(src)
             Identifier = state.identifier
         }
     elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
-        local Player = Core.Functions.GetPlayer(src)
-    
+        local Player = Core.Functions.GetPlayer(src).PlayerData
+
         return {
             Job = {
                 name = Player.job.name,

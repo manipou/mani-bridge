@@ -70,6 +70,16 @@ local function RemoveMoneyAuto(src, types, amount)
             end
         end
         return false
+    elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
+        for i = 1, #types do
+            local moneyType = ConvertMoneyType(types[i])
+            if PlayerData.Functions.RemoveMoney(moneyType, amount) then
+                return true
+            end
+        end
+        return false
+    else
+        -- ADD CUSTOM FRAMEWORK SUPPORT HERE
     end
 end
 

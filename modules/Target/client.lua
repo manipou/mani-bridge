@@ -20,7 +20,7 @@ end
 
 local function AddTargetModel(models, options)
     if Config.Target == 'ox' then
-        exports['ox_target']:addModel(models, options)
+        return exports['ox_target']:addModel(models, options)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
         if options[1] and options[1].label then
@@ -29,7 +29,7 @@ local function AddTargetModel(models, options)
             FormattedOptions = { FormatTable(options) }
         end
 
-        exports['qb-target']:AddTargetModel(models, {
+        return exports['qb-target']:AddTargetModel(models, {
             options = FormattedOptions,
             distance = FormattedOptions[1].distance
         })
@@ -40,7 +40,7 @@ exports('AddTargetModel', AddTargetModel)
 
 local function AddBoxTarget(parameters)
     if Config.Target == 'ox' then
-        exports['ox_target']:addBoxZone(parameters)
+        return exports['ox_target']:addBoxZone(parameters)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
         if parameters.options[1] and parameters.options[1].label then
@@ -49,7 +49,7 @@ local function AddBoxTarget(parameters)
             FormattedOptions = { FormatTable(parameters.options) }
         end
 
-        exports['qb-target']:AddBoxZone(parameters.name, parameters.coords.xyz, parameters.size.x, parameters.size.y, {
+        return exports['qb-target']:AddBoxZone(parameters.name, parameters.coords.xyz, parameters.size.x, parameters.size.y, {
             name = parameters.name,
             heading = parameters.coords.w,
             debugPoly = parameters.debug,
@@ -66,7 +66,7 @@ exports('AddBoxTarget', AddBoxTarget)
 
 local function AddLocalEntityTarget(entity, options)
     if Config.Target == 'ox' then
-        exports['ox_target']:addLocalEntity(entity, options)
+        return exports['ox_target']:addLocalEntity(entity, options)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
         if options[1] and options[1].label then
@@ -75,7 +75,7 @@ local function AddLocalEntityTarget(entity, options)
             FormattedOptions = { FormatTable(options) }
         end
 
-        exports['qb-target']:AddTargetEntity(entity, {
+        return exports['qb-target']:AddTargetEntity(entity, {
             options = FormattedOptions,
             distance = FormattedOptions[1].distance
         })
@@ -86,7 +86,7 @@ exports('AddLocalEntityTarget', AddLocalEntityTarget)
 
 local function AddGlobalVehicleTarget(options)
     if Config.Target == 'ox' then
-        exports['ox_target']:addGlobalVehicle(options)
+        return exports['ox_target']:addGlobalVehicle(options)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
         if options[1] and options[1].label then
@@ -95,7 +95,7 @@ local function AddGlobalVehicleTarget(options)
             FormattedOptions = { FormatTable(options) }
         end
 
-        exports['qb-target']:AddGlobalVehicle({
+        return exports['qb-target']:AddGlobalVehicle({
             options = FormattedOptions,
             distance = FormattedOptions[1].distance
         })
@@ -146,7 +146,7 @@ exports('RemoveLocalEntityTarget', RemoveLocalEntityTarget)
 
 local function AddGlobalPlayerTarget(options)
     if Config.Target == 'ox' then
-        exports['ox_target']:addGlobalPlayer(options)
+        return exports['ox_target']:addGlobalPlayer(options)
     elseif Config.Target == 'qb' then
         local FormattedOptions = {}
         if options[1] and options[1].label then
@@ -155,7 +155,7 @@ local function AddGlobalPlayerTarget(options)
             FormattedOptions = { FormatTable(options) }
         end
 
-        exports['qb-target']:AddGlobalPlayer({
+        return exports['qb-target']:AddGlobalPlayer({
             options = FormattedOptions,
             distance = FormattedOptions[1].distance
         })
