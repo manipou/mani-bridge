@@ -50,6 +50,10 @@ Config.Phone = dependencyCheck({
     ['lb-phone'] = 'lb',
 }) or nil
 
+Config.Teams = dependencyCheck({
+    ['st_teams'] = 'st',
+}) or nil
+
 Config.oxOptions = { -- ox_lib usage options
     Notify = true,
     ProgressBar = 'bar' -- 'bar' or 'circle' - false to disable

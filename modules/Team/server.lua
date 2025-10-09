@@ -1,17 +1,22 @@
 local function DoAction(src, cb)
-    local isInTeam = exports['st_teams']:IsPlayerInTeam(src)
+    if Config.Teams == 'st' then
+        local isInTeam = exports['st_teams']:IsPlayerInTeam(src)
 
-    if isInTeam then
-        local team = exports['st_teams']:getTeamFromSource(src)
-        local allMembers = team.getAllMembers()
-        for i = 1, #allMembers do
-            local memberSrc = allMembers[i].source
-            cb(memberSrc)
+        if isInTeam then
+            local team = exports['st_teams']:getTeamFromSource(src)
+            local allMembers = team.getAllMembers()
+            for i = 1, #allMembers do
+                local memberSrc = allMembers[i].source
+                cb(memberSrc)
+            end
+            return #allMembers
+        else
+            cb(src)
         end
-        return #allMembers
-    else
-        cb(src)
+        return 1 
     end
+
+    cb(src)
     return 1
 end
 
