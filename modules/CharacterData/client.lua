@@ -10,11 +10,11 @@ local function GetPlayerData()
 
         return {
             Job = {
-                name = state.job.name,
-                label = state.job.label,
-                grade = state.job.grade,
-                gradeLabel = state.job.grade_label,
-                isBoss = state.job.grade_name == 'boss'
+                Name = state.job.name,
+                Label = state.job.label,
+                Grade = state.job.grade,
+                GradeLabel = state.job.grade_label,
+                IsBoss = state.job.grade_name == 'boss'
             },
             Identifier = state.identifier
         }
@@ -23,11 +23,11 @@ local function GetPlayerData()
     
         return {
             Job = {
-                name = Player.job.name,
-                label = Player.job.label,
-                grade = Player.job.grade.level,
-                gradeLabel = Player.job.grade.name,
-                isBoss = Player.job.isboss
+                Name = Player.job.name,
+                Label = Player.job.label,
+                Grade = Player.job.grade.level,
+                GradeLabel = Player.job.grade.name,
+                IsBoss = Player.job.isboss
             },
             Identifier = Player.citizenid
         }
