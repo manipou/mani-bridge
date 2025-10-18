@@ -163,3 +163,11 @@ local function AddGlobalPlayerTarget(options)
 end
 
 exports('AddGlobalPlayerTarget', AddGlobalPlayerTarget)
+
+local function DisableTarget(State)
+    if Config.Target == 'ox' then
+        exports['ox_target']:disableTargeting(State)
+    end
+end
+
+exports('DisableTarget', DisableTarget)

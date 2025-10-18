@@ -41,10 +41,10 @@ local function SafeCrack(entity, locks, cb, createCam)
             NetworkStopSynchronisedScene(success)
 
             DeleteEntity(entity)
-            local openedSafe = CreateObject(openedProp, coords.x, coords.y, coords.z, true, true, true)
-            SetEntityHeading(openedSafe, heading)
+            
+            local OpenedSafe = exports['mani-bridge']:CreateObj(openedProp, vec4(coords.x, coords.y, coords.z, heading))
 
-            cb(true, openedSafe)
+            cb(true, OpenedSafe)
         else
             NetworkStopSynchronisedScene(idle)
             cb(false, nil)
