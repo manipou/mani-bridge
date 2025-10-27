@@ -16,21 +16,21 @@ local function SafeCrack(entity, locks, cb, createCam)
     lib.requestAnimDict(dict)
 
     local intro = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, intro, dict, "enter_player", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(entity, intro, dict, "enter_safe", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, intro, dict, 'enter_player', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(entity, intro, dict, 'enter_safe', 1.0, 1.0, 1)
     if createCam then NetworkAddSynchronisedSceneCamera(intro, dict, 'enter_cam') end
     NetworkStartSynchronisedScene(intro)
     Wait(766)
 
     local idle = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, true, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, idle, dict, "idle_player", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(entity, idle, dict, "idle_safe", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, idle, dict, 'idle_player', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(entity, idle, dict, 'idle_safe', 1.0, 1.0, 1)
     if createCam then NetworkAddSynchronisedSceneCamera(idle, dict, 'idle_cam') end
     NetworkStartSynchronisedScene(idle)
 
     local success = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, success, dict, "door_open_player", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(entity, success, dict, "door_open_safe", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, success, dict, 'door_open_player', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(entity, success, dict, 'door_open_safe', 1.0, 1.0, 1)
     if createCam then  NetworkAddSynchronisedSceneCamera(success, dict, 'door_open_cam') end
 
     exports['st_minigames']:SafeCrack(true, locks, function(hasWon)
@@ -72,19 +72,19 @@ local function EletricBox(entity, cb, time)
     lib.requestAnimDict(dict)
 
     local intro = NetworkCreateSynchronisedScene(coords.xyz, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, intro, dict, "enter", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(entity, intro, dict, "enter_electric_box", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, intro, dict, 'enter', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(entity, intro, dict, 'enter_electric_box', 1.0, 1.0, 1)
     NetworkStartSynchronisedScene(intro)
     Wait(1566)
 
     local idle = NetworkCreateSynchronisedScene(coords.xyz, rotation, 2, false, true, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, idle, dict, "loop", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(entity, idle, dict, "loop_electric_box", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, idle, dict, 'loop', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(entity, idle, dict, 'loop_electric_box', 1.0, 1.0, 1)
     NetworkStartSynchronisedScene(idle)
 
     local exit = NetworkCreateSynchronisedScene(coords.xyz - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, exit, dict, "exit", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(entity, exit, dict, "exit_electric_box", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, exit, dict, 'exit', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(entity, exit, dict, 'exit_electric_box', 1.0, 1.0, 1)
 
     local hasWon = exports['elevate-minigames']:CircuitBreaker(1)
     if hasWon then
@@ -136,20 +136,20 @@ local function OpenContainer(entity, cb)
     SetEntityCollision(lockProp, false, true)
 
     local scene = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, scene, dict, "action", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(bagProp, scene, dict, "action_bag", 1.0, 1.0, 1)
-    NetworkAddEntityToSynchronisedScene(grinderProp, scene, dict, "action_angle_grinder", 1.0, 1.0, 1)
-    NetworkAddEntityToSynchronisedScene(lockProp, scene, dict, "action_lock", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, scene, dict, 'action', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(bagProp, scene, dict, 'action_bag', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(grinderProp, scene, dict, 'action_angle_grinder', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(lockProp, scene, dict, 'action_lock', 1.0, 1.0, 1)
     
     local propScene = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddEntityToSynchronisedScene(entity, propScene, dict, "action_container", 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(entity, propScene, dict, 'action_container', 1.0, 1.0, 1)
 
     NetworkStartSynchronisedScene(scene)
     NetworkStartSynchronisedScene(propScene)
 
     Wait(4000)
     UseParticleFxAssetNextCall('scr_tn_tr')
-    local particles = StartParticleFxLoopedOnEntity("scr_tn_tr_angle_grinder_sparks", grinderProp, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 1.0, false, false, false, 1065353216, 1065353216, 1065353216, 1)
+    local particles = StartParticleFxLoopedOnEntity('scr_tn_tr_angle_grinder_sparks', grinderProp, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 1.0, false, false, false, 1065353216, 1065353216, 1065353216, 1)
     Wait(1000)
     StopParticleFxLooped(particles, 1)
 
@@ -197,11 +197,11 @@ local function OpenCrate(entity, cb)
     SetEntityCollision(crowbarProp, false, true)
 
     local scene = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, scene, dict, "empty", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(crowbarProp, scene, dict, "empty_crowbar", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, scene, dict, 'empty', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(crowbarProp, scene, dict, 'empty_crowbar', 1.0, 1.0, 1)
     
     local propScene = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddEntityToSynchronisedScene(entity, propScene, dict, "empty_crate", 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(entity, propScene, dict, 'empty_crate', 1.0, 1.0, 1)
 
     NetworkStartSynchronisedScene(scene)
     NetworkStartSynchronisedScene(propScene)
@@ -240,18 +240,18 @@ local function HackUSB(minigame, cb)
     SetEntityCollision(usbProp, false, true)
 
     local scene = NetworkCreateSynchronisedScene(coords.xy, coords.z, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, scene, dict, "action", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(phoneProp, scene, dict, "action_phone", 1.0, 1.0, 1)
-    NetworkAddEntityToSynchronisedScene(usbProp, scene, dict, "action_usb_drive", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, scene, dict, 'action', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(phoneProp, scene, dict, 'action_phone', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(usbProp, scene, dict, 'action_usb_drive', 1.0, 1.0, 1)
 
     NetworkStartSynchronisedScene(scene)
 
     Wait(4566)
 
     local loopScene = NetworkCreateSynchronisedScene(coords.xy, coords.z, rotation, 2, true, true, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, loopScene, dict, "hack_loop", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(phoneProp, loopScene, dict, "hack_loop_phone", 1.0, 1.0, 1)
-    NetworkAddEntityToSynchronisedScene(usbProp, loopScene, dict, "hack_loop_usb_drive", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, loopScene, dict, 'hack_loop', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(phoneProp, loopScene, dict, 'hack_loop_phone', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(usbProp, loopScene, dict, 'hack_loop_usb_drive', 1.0, 1.0, 1)
 
     NetworkStartSynchronisedScene(loopScene)
 
@@ -260,9 +260,9 @@ local function HackUSB(minigame, cb)
     end)
 
     local exitScene = NetworkCreateSynchronisedScene(coords.xy, coords.z, rotation, 2, true, true, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, exitScene, dict, "exit", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(phoneProp, exitScene, dict, "exit_phone", 1.0, 1.0, 1)
-    NetworkAddEntityToSynchronisedScene(usbProp, exitScene, dict, "exit_usb_drive", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, exitScene, dict, 'exit', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(phoneProp, exitScene, dict, 'exit_phone', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(usbProp, exitScene, dict, 'exit_usb_drive', 1.0, 1.0, 1)
 
     NetworkStartSynchronisedScene(exitScene)
 
@@ -294,18 +294,18 @@ local function HackPhone(minigame, cb)
     SetEntityCollision(phoneProp, false, true)
 
     local loopScene = NetworkCreateSynchronisedScene(coords.xy, coords.z, rotation, 2, true, true, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, loopScene, dict, "hack_loop_var_01", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(phoneProp, loopScene, dict, "hack_loop_var_01_prop_phone_ing", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, loopScene, dict, 'hack_loop_var_01', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(phoneProp, loopScene, dict, 'hack_loop_var_01_prop_phone_ing', 1.0, 1.0, 1)
 
     NetworkStartSynchronisedScene(loopScene)
 
     local successScene = NetworkCreateSynchronisedScene(coords.xy, coords.z, rotation, 2, true, true, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, successScene, dict, "success_react_exit_var_01", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(phoneProp, successScene, dict, "success_react_exit_var_01_prop_phone_ing", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, successScene, dict, 'success_react_exit_var_01', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(phoneProp, successScene, dict, 'success_react_exit_var_01_prop_phone_ing', 1.0, 1.0, 1)
 
     local failScene = NetworkCreateSynchronisedScene(coords.xy, coords.z, rotation, 2, true, true, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(ped, failScene, dict, "fail_react", 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(phoneProp, failScene, dict, "fail_react_prop_phone_ing", 1.0, 1.0, 1)
+    NetworkAddPedToSynchronisedScene(ped, failScene, dict, 'fail_react', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(phoneProp, failScene, dict, 'fail_react_prop_phone_ing', 1.0, 1.0, 1)
 
     minigame(function(success)
         cb(success)
@@ -327,3 +327,76 @@ local function HackPhone(minigame, cb)
 end
 
 exports('HackPhone', HackPhone)
+
+local function StealPainting(Entity, KnifeProp, CB, CreateCam)
+    if not DoesEntityExist(Entity) then lib.print.error('StealPainting: Entity does not exist') return end
+
+    while NetworkGetEntityOwner(Entity) ~= PlayerId() do
+        NetworkRequestControlOfEntity(Entity)
+        Wait(100)
+    end
+
+    local PlayerPed = cache.ped
+    local coords = GetEntityCoords(Entity)
+    local rotation = GetEntityRotation(Entity)
+    local heading = GetEntityHeading(Entity)
+    local dict = 'anim_heist@hs3f@ig11_steal_painting@male@'
+    
+    lib.requestAnimDict(dict)
+
+    local Enter = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, Enter, dict, 'ver_01_top_left_enter', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, Enter, dict, 'ver_01_top_left_enter_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    -- NetworkAddEntityToSynchronisedScene(KnifeProp, Enter, dict, 'ver_01_top_left_enter_w_me_switchblade', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(Enter, dict, 'ver_01_top_left_enter_cam_ble') end
+    NetworkStartSynchronisedScene(Enter)
+    Wait(2033)
+
+    local LeftToRight = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, LeftToRight, dict, 'ver_01_cutting_top_left_to_right', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, LeftToRight, dict, 'ver_01_cutting_top_left_to_right_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    -- NetworkAddEntityToSynchronisedScene(KnifeProp, LeftToRight, dict, 'ver_01_cutting_top_left_to_right_w_me_switchblade', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(LeftToRight, dict, 'ver_01_cutting_top_left_to_right_cam') end
+    NetworkStartSynchronisedScene(LeftToRight)
+    Wait(2600)
+
+    local RightToBottom = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    -- NetworkAddEntityToSynchronisedScene(KnifeProp, RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom_w_me_switchblade', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom_cam') end
+    NetworkStartSynchronisedScene(RightToBottom)
+    Wait(2700)
+
+    local BottomRightToLeft = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    -- NetworkAddEntityToSynchronisedScene(KnifeProp, BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left_w_me_switchblade', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left_cam') end
+    NetworkStartSynchronisedScene(BottomRightToLeft)
+    Wait(2933)
+
+    local TopLeftToBottom = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    -- NetworkAddEntityToSynchronisedScene(KnifeProp, TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom_w_me_switchblade', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom_cam') end
+    NetworkStartSynchronisedScene(TopLeftToBottom)
+    Wait(2433)
+
+    local ExitWithPainting = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, ExitWithPainting, dict, 'ver_01_with_painting_exit', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, ExitWithPainting, dict, 'ver_01_with_painting_exit_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    -- NetworkAddEntityToSynchronisedScene(KnifeProp, ExitWithPainting, dict, 'ver_01_with_painting_exit_w_me_switchblade', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(ExitWithPainting, dict, 'ver_01_with_painting_exit_cam_re1') end
+    NetworkStartSynchronisedScene(ExitWithPainting)
+    Wait(7233)
+
+    NetworkStopSynchronisedScene(ExitWithPainting)
+
+    CB()
+
+    RemoveAnimDict(dict)
+end
+
+exports('StealPainting', StealPainting)
