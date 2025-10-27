@@ -328,7 +328,7 @@ end
 
 exports('HackPhone', HackPhone)
 
-local function StealPainting(Entity, KnifeProp, CB, CreateCam)
+local function StealPainting(Entity, CB, CreateCam)
     if not DoesEntityExist(Entity) then lib.print.error('StealPainting: Entity does not exist') return end
 
     while NetworkGetEntityOwner(Entity) ~= PlayerId() do
@@ -337,66 +337,71 @@ local function StealPainting(Entity, KnifeProp, CB, CreateCam)
     end
 
     local PlayerPed = cache.ped
-    local coords = GetEntityCoords(Entity)
-    local rotation = GetEntityRotation(Entity)
-    local heading = GetEntityHeading(Entity)
-    local dict = 'anim_heist@hs3f@ig11_steal_painting@male@'
-    
-    lib.requestAnimDict(dict)
+    local Coords = GetEntityCoords(Entity)
+    local Rotation = GetEntityRotation(Entity)
+    local Dict = 'anim_heist@hs3f@ig11_steal_painting@male@'
+    local BagModel = GetHashKey('hei_p_m_bag_var22_arm_s')
 
-    local Enter = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(PlayerPed, Enter, dict, 'ver_01_top_left_enter', 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(Entity, Enter, dict, 'ver_01_top_left_enter_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
-    -- NetworkAddEntityToSynchronisedScene(KnifeProp, Enter, dict, 'ver_01_top_left_enter_w_me_switchblade', 1.0, 1.0, 1)
-    if CreateCam then NetworkAddSynchronisedSceneCamera(Enter, dict, 'ver_01_top_left_enter_cam_ble') end
+    lib.requestModel(BagModel)
+    lib.requestAnimDict(Dict)
+
+    local BagProp = CreateObject(BagModel, Coords.x, Coords.y, Coords.z, true, true, true)
+
+    local Enter = NetworkCreateSynchronisedScene(Coords.xy, Coords.z - 0.05, Rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, Enter, Dict, 'ver_01_top_left_enter', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, Enter, Dict, 'ver_01_top_left_enter_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(BagProp, Enter, Dict, 'ver_01_top_left_enter_hei_p_m_bag_var22_arm_s', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(Enter, Dict, 'ver_01_top_left_enter_cam_ble') end
     NetworkStartSynchronisedScene(Enter)
     Wait(2033)
 
-    local LeftToRight = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(PlayerPed, LeftToRight, dict, 'ver_01_cutting_top_left_to_right', 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(Entity, LeftToRight, dict, 'ver_01_cutting_top_left_to_right_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
-    -- NetworkAddEntityToSynchronisedScene(KnifeProp, LeftToRight, dict, 'ver_01_cutting_top_left_to_right_w_me_switchblade', 1.0, 1.0, 1)
-    if CreateCam then NetworkAddSynchronisedSceneCamera(LeftToRight, dict, 'ver_01_cutting_top_left_to_right_cam') end
+    local LeftToRight = NetworkCreateSynchronisedScene(Coords.xy, Coords.z - 0.05, Rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, LeftToRight, Dict, 'ver_01_cutting_top_left_to_right', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, LeftToRight, Dict, 'ver_01_cutting_top_left_to_right_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(BagProp, LeftToRight, Dict, 'ver_01_cutting_top_left_to_right_hei_p_m_bag_var22_arm_s', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(LeftToRight, Dict, 'ver_01_cutting_top_left_to_right_cam') end
     NetworkStartSynchronisedScene(LeftToRight)
     Wait(2600)
 
-    local RightToBottom = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(PlayerPed, RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom', 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(Entity, RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
-    -- NetworkAddEntityToSynchronisedScene(KnifeProp, RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom_w_me_switchblade', 1.0, 1.0, 1)
-    if CreateCam then NetworkAddSynchronisedSceneCamera(RightToBottom, dict, 'ver_01_cutting_right_top_to_bottom_cam') end
+    local RightToBottom = NetworkCreateSynchronisedScene(Coords.xy, Coords.z - 0.05, Rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, RightToBottom, Dict, 'ver_01_cutting_right_top_to_bottom', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, RightToBottom, Dict, 'ver_01_cutting_right_top_to_bottom_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(BagProp, RightToBottom, Dict, 'ver_01_cutting_right_top_to_bottom_hei_p_m_bag_var22_arm_s', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(RightToBottom, Dict, 'ver_01_cutting_right_top_to_bottom_cam') end
     NetworkStartSynchronisedScene(RightToBottom)
     Wait(2700)
 
-    local BottomRightToLeft = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(PlayerPed, BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left', 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(Entity, BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
-    -- NetworkAddEntityToSynchronisedScene(KnifeProp, BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left_w_me_switchblade', 1.0, 1.0, 1)
-    if CreateCam then NetworkAddSynchronisedSceneCamera(BottomRightToLeft, dict, 'ver_01_cutting_bottom_right_to_left_cam') end
+    local BottomRightToLeft = NetworkCreateSynchronisedScene(Coords.xy, Coords.z - 0.05, Rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, BottomRightToLeft, Dict, 'ver_01_cutting_bottom_right_to_left', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, BottomRightToLeft, Dict, 'ver_01_cutting_bottom_right_to_left_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(BagProp, BottomRightToLeft, Dict, 'ver_01_cutting_bottom_right_to_left_hei_p_m_bag_var22_arm_s', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(BottomRightToLeft, Dict, 'ver_01_cutting_bottom_right_to_left_cam') end
     NetworkStartSynchronisedScene(BottomRightToLeft)
     Wait(2933)
 
-    local TopLeftToBottom = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(PlayerPed, TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom', 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(Entity, TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
-    -- NetworkAddEntityToSynchronisedScene(KnifeProp, TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom_w_me_switchblade', 1.0, 1.0, 1)
-    if CreateCam then NetworkAddSynchronisedSceneCamera(TopLeftToBottom, dict, 'ver_01_re-enter_cutting_left_top_to_bottom_cam') end
+    local TopLeftToBottom = NetworkCreateSynchronisedScene(Coords.xy, Coords.z - 0.05, Rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, TopLeftToBottom, Dict, 'ver_01_re-enter_cutting_left_top_to_bottom', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, TopLeftToBottom, Dict, 'ver_01_re-enter_cutting_left_top_to_bottom_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(BagProp, TopLeftToBottom, Dict, 'ver_01_re-enter_cutting_left_top_to_bottom_hei_p_m_bag_var22_arm_s', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(TopLeftToBottom, Dict, 'ver_01_re-enter_cutting_left_top_to_bottom_cam') end
     NetworkStartSynchronisedScene(TopLeftToBottom)
     Wait(2433)
 
-    local ExitWithPainting = NetworkCreateSynchronisedScene(coords.xy, coords.z - 0.05, rotation, 2, true, false, -1, 0, 1.0)
-    NetworkAddPedToSynchronisedScene(PlayerPed, ExitWithPainting, dict, 'ver_01_with_painting_exit', 1.5, -4.0, 1, 16, 1148846080, 0)
-    NetworkAddEntityToSynchronisedScene(Entity, ExitWithPainting, dict, 'ver_01_with_painting_exit_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
-    -- NetworkAddEntityToSynchronisedScene(KnifeProp, ExitWithPainting, dict, 'ver_01_with_painting_exit_w_me_switchblade', 1.0, 1.0, 1)
-    if CreateCam then NetworkAddSynchronisedSceneCamera(ExitWithPainting, dict, 'ver_01_with_painting_exit_cam_re1') end
+    local ExitWithPainting = NetworkCreateSynchronisedScene(Coords.xy, Coords.z - 0.05, Rotation, 2, true, false, -1, 0, 1.0)
+    NetworkAddPedToSynchronisedScene(PlayerPed, ExitWithPainting, Dict, 'ver_01_with_painting_exit', 1.5, -4.0, 1, 16, 1148846080, 0)
+    NetworkAddEntityToSynchronisedScene(Entity, ExitWithPainting, Dict, 'ver_01_with_painting_exit_ch_prop_vault_painting_01a', 1.0, 1.0, 1)
+    NetworkAddEntityToSynchronisedScene(BagProp, ExitWithPainting, Dict, 'ver_01_with_painting_exit_hei_p_m_bag_var22_arm_s', 1.0, 1.0, 1)
+    if CreateCam then NetworkAddSynchronisedSceneCamera(ExitWithPainting, Dict, 'ver_01_with_painting_exit_cam_re1') end
     NetworkStartSynchronisedScene(ExitWithPainting)
     Wait(7233)
 
     NetworkStopSynchronisedScene(ExitWithPainting)
 
-    CB()
+    DeleteEntity(BagProp)
+    SetModelAsNoLongerNeeded(BagModel)
+    RemoveAnimDict(Dict)
 
-    RemoveAnimDict(dict)
+    CB()
 end
 
 exports('StealPainting', StealPainting)
