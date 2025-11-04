@@ -37,6 +37,7 @@ local function GetPlayerData(src)
             Character = {
                 Firstname = xPlayer.firstName,
                 Lastname = xPlayer.lastName,
+                Fullname = xPlayer.firstName .. ' ' .. xPlayer.lastName,
                 Gender = xPlayer.sex == 0 and 'male' or 'female',
             },
             Job = {
@@ -55,6 +56,7 @@ local function GetPlayerData(src)
             Character = {
                 Firstname = Player.charinfo.firstname,
                 Lastname = Player.charinfo.lastname,
+                Fullname = Player.charinfo.firstname .. ' ' .. Player.charinfo.lastname,
                 Gender = Player.charinfo.gender == 0 and 'male' or 'female',
             },
             Job = {
