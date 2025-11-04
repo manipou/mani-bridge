@@ -31,22 +31,32 @@ end)
 
 local function GetPlayerData(src)
     if Config.Framework == 'esx' then
-        local state = Player(src).state
+        local xPlayer = Core.GetPlayerFromId(src)
 
         return {
-            Job = {
-                name = state.job.name,
-                label = state.job.label,
-                grade = state.job.grade,
-                gradeLabel = state.job.grade_label,
-                isBoss = state.job.grade_name == 'boss'
+            Character = {
+                Firstname = xPlayer.firstName,
+                Lastname = xPlayer.lastName,
+                Gender = xPlayer.sex == 0 and 'male' or 'female',
             },
-            Identifier = state.identifier
+            Job = {
+                name = xPlayer.job.name,
+                label = xPlayer.job.label,
+                grade = xPlayer.job.grade,
+                gradeLabel = xPlayer.job.grade_label,
+                isBoss = xPlayer.job.grade_name == 'boss'
+            },
+            Identifier = xPlayer.identifier
         }
     elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
         local Player = Core.Functions.GetPlayer(src).PlayerData
 
         return {
+            Character = {
+                Firstname = Player.charinfo.firstname,
+                Lastname = Player.charinfo.lastname,
+                Gender = Player.charinfo.gender == 0 and 'male' or 'female',
+            },
             Job = {
                 name = Player.job.name,
                 label = Player.job.label,
