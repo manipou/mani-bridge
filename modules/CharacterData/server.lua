@@ -35,9 +35,9 @@ local function GetPlayerData(src)
 
         return {
             Character = {
-                Firstname = xPlayer.firstName,
-                Lastname = xPlayer.lastName,
-                Fullname = xPlayer.firstName .. ' ' .. xPlayer.lastName,
+                Firstname = xPlayer.variables.firstName,
+                Lastname = xPlayer.variables.lastName,
+                Fullname = xPlayer.variables.firstName .. ' ' .. xPlayer.variables.lastName,
                 Gender = xPlayer.sex == 0 and 'male' or 'female',
             },
             Job = {
