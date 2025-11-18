@@ -117,3 +117,11 @@ local function GetItemMetadata(src, slot)
 end
 
 exports('GetItemMetadata', GetItemMetadata)
+
+local function RegisterStash(Id, Label, Slots, MaxWeight, Owner, Groups, Coords)
+    if Config.Inventory == 'ox' then
+        exports['ox_inventory']:RegisterStash(Id, Label, Slots, MaxWeight, Owner, Groups, Coords)
+    end
+end
+
+exports('RegisterStash', RegisterStash)

@@ -12,6 +12,14 @@ end
 
 exports('GetPlayer', GetPlayer)
 
+local function GetPlayerFromIdentifier(Identifier)
+    if Config.Framework == 'esx' then
+        return Core.GetPlayerFromIdentifier(Identifier)
+    end
+end
+
+exports('GetPlayerFromIdentifier', GetPlayerFromIdentifier)
+
 local function GetGender(src)
     local PlayerData = GetPlayer(src)
     if Config.Framework == 'esx' then

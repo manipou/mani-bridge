@@ -84,3 +84,19 @@ local function RemoveMoneyAuto(src, types, amount)
 end
 
 exports('RemoveMoneyAuto', RemoveMoneyAuto)
+
+local function AddMoneyOffline(Identifier, Type, Amount)
+    local PlayerData = exports['mani-bridge']:GetPlayerFromIdentifier(Identifier)
+
+    if Config.Framework == 'esx' then
+        if PlayerData then
+            PlayerData.addAccountMoney(ConvertMoneyType(Type), Amount)
+        else
+            MySQL.update.await('UPDATE users SET accounts = JSON_SET(accounts, ?, ?) WHERE identifier = ?', {
+                ('$.%s'):format(ConvertMoneyType(Type)), Amount, Identifier
+            })
+        end
+    end
+end
+
+exports('AddMoneyOffline', AddMoneyOffline)

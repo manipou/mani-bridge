@@ -15,3 +15,13 @@ local function inventorySearch(search, item, metadata)
 end
 
 exports('inventorySearch', inventorySearch)
+
+local function OpenInventory(InvType, Data)
+    if Config.Inventory == 'ox' then
+        return exports['ox_inventory']:openInventory(InvType, Data)
+    elseif Config.Inventory == 'qb' then
+        
+    end
+end
+
+exports('OpenInventory', OpenInventory)
