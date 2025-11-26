@@ -50,11 +50,11 @@ local function GetPlayerData(Source)
                 Gender = xPlayer.sex == 0 and 'male' or 'female',
             },
             Job = {
-                name = xPlayer.job.name,
-                label = xPlayer.job.label,
-                grade = xPlayer.job.grade,
-                gradeLabel = xPlayer.job.grade_label,
-                isBoss = xPlayer.job.grade_name == 'boss'
+                Name = xPlayer.job.name,
+                Label = xPlayer.job.label,
+                Grade = xPlayer.job.grade,
+                GradeLabel = xPlayer.job.grade_label,
+                IsBoss = xPlayer.job.grade_name == 'boss'
             },
             Identifier = xPlayer.identifier
         }
@@ -70,11 +70,11 @@ local function GetPlayerData(Source)
                 Gender = Player.charinfo.gender == 0 and 'male' or 'female',
             },
             Job = {
-                name = Player.job.name,
-                label = Player.job.label,
-                grade = Player.job.grade.level,
-                gradeLabel = Player.job.grade.name,
-                isBoss = Player.job.isboss
+                Name = Player.job.name,
+                Label = Player.job.label,
+                Grade = Player.job.grade.level,
+                GradeLabel = Player.job.grade.name,
+                IsBoss = Player.job.isboss
             },
             Identifier = Player.citizenid
         }
