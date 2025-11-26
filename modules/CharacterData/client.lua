@@ -7,14 +7,16 @@ exports('GetGender', GetGender)
 local function GetPlayerData()
     if Config.Framework == 'esx' then
         local xPlayer = Core.GetPlayerData()
-        if not xPlayer then return false end
+        if not next(xPlayer) then return false end
+
+        print(json.encode(xPlayer, {indent=true}))
 
         return {
             Character = {
-                Firstname = xPlayer.variables.firstName,
-                Lastname = xPlayer.variables.lastName,
-                Fullname = xPlayer.variables.firstName .. ' ' .. xPlayer.variables.lastName,
-                Gender = xPlayer.sex == 0 and 'male' or 'female',
+                Firstname = xPlayer.firstName,
+                Lastname = xPlayer.lastName,
+                Fullname = xPlayer.name,
+                Gender = xPlayer.sex == 'm' and 'male' or 'female',
             },
             Job = {
                 Name = xPlayer.job.name,
