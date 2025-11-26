@@ -92,7 +92,7 @@ if Config.Framework == 'esx' then
         local PlayerData = GetPlayerData(Source)
         if not PlayerData then return end
 
-        TriggerServerEvent('mani-bridge:server:PlayerLoaded', PlayerData)
+        TriggerEvent('mani-bridge:server:PlayerLoaded', PlayerData)
         TriggerClientEvent('mani-bridge:client:PlayerLoaded', Source, PlayerData)
     end)
 elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
@@ -101,7 +101,7 @@ elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
         local PlayerData = GetPlayerData(Source)
         if not PlayerData then return end
 
-        TriggerServerEvent('mani-bridge:server:PlayerLoaded', PlayerData)
+        TriggerEvent('mani-bridge:server:PlayerLoaded', PlayerData)
         TriggerClientEvent('mani-bridge:client:PlayerLoaded', Source, PlayerData)
     end)
 end
