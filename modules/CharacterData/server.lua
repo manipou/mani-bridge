@@ -40,6 +40,7 @@ end)
 local function GetPlayerData(Source)
     if Config.Framework == 'esx' then
         local xPlayer = Core.GetPlayerFromId(Source)
+        if not xPlayer then return false end
 
         return {
             Source = Source,
@@ -60,6 +61,7 @@ local function GetPlayerData(Source)
         }
     elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
         local Player = Core.Functions.GetPlayer(Source).PlayerData
+        if not Player then return false end
 
         return {
             Source = Source,

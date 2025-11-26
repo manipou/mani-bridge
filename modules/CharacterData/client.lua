@@ -7,6 +7,7 @@ exports('GetGender', GetGender)
 local function GetPlayerData()
     if Config.Framework == 'esx' then
         local xPlayer = Core.GetPlayerData()
+        if not xPlayer then return false end
 
         return {
             Character = {
@@ -26,7 +27,8 @@ local function GetPlayerData()
         }
     elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
         local Player = Core.Functions.GetPlayerData()
-    
+        if not Player then return false end
+
         return {
             Character = {
                 Firstname = Player.charinfo.firstname,
