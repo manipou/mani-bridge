@@ -37,11 +37,12 @@ lib.callback.register('mani-bridge:server:getGender', function(src)
     return GetGender(src)
 end)
 
-local function GetPlayerData(src)
+local function GetPlayerData(Source)
     if Config.Framework == 'esx' then
-        local xPlayer = Core.GetPlayerFromId(src)
+        local xPlayer = Core.GetPlayerFromId(Source)
 
         return {
+            Source = Source,
             Character = {
                 Firstname = xPlayer.variables.firstName,
                 Lastname = xPlayer.variables.lastName,
@@ -58,9 +59,10 @@ local function GetPlayerData(src)
             Identifier = xPlayer.identifier
         }
     elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
-        local Player = Core.Functions.GetPlayer(src).PlayerData
+        local Player = Core.Functions.GetPlayer(Source).PlayerData
 
         return {
+            Source = Source,
             Character = {
                 Firstname = Player.charinfo.firstname,
                 Lastname = Player.charinfo.lastname,
@@ -82,3 +84,22 @@ local function GetPlayerData(src)
 end
 
 exports('GetPlayerData', GetPlayerData)
+
+if Config.Framework == 'esx' then
+    AddEventHandler('esx:playerLoaded', function(Source)
+        local PlayerData = GetPlayerData(Source)
+        if not PlayerData then return end
+
+        TriggerServerEvent('mani-bridge:server:PlayerLoaded', PlayerData)
+        TriggerClientEvent('mani-bridge:client:PlayerLoaded', Source, PlayerData)
+    end)
+elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
+    RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function()
+        local Source = source
+        local PlayerData = GetPlayerData(Source)
+        if not PlayerData then return end
+
+        TriggerServerEvent('mani-bridge:server:PlayerLoaded', PlayerData)
+        TriggerClientEvent('mani-bridge:client:PlayerLoaded', Source, PlayerData)
+    end)
+end

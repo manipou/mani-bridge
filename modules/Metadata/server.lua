@@ -24,7 +24,7 @@ CreateThread(function()
     Wait(500)
 
     if Config.Framework == 'esx' then
-        RegisterNetEvent('esx:playerLoaded', function(src, xPlayer)
+        AddEventHandler('esx:playerLoaded', function(src, xPlayer)
             local charId = xPlayer.getIdentifier()
             charIds[src] = charId
             metadata[charId] = metadata[charId] or {}
