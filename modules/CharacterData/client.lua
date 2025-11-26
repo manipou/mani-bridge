@@ -9,8 +9,6 @@ local function GetPlayerData()
         local xPlayer = Core.GetPlayerData()
         if not next(xPlayer) then return false end
 
-        print(json.encode(xPlayer, {indent=true}))
-
         return {
             Character = {
                 Firstname = xPlayer.firstName,
