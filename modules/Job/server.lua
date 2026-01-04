@@ -24,7 +24,7 @@ end
 
 CreateThread(function()
     if Config.Framework == 'esx' then
-        RegisterNetEvent('esx:setJob', function(src, job, lastJob) OnJobChange(src, job, lastJob) end)
+        AddEventHandler('esx:setJob', function(source, job, lastJob) OnJobChange(source, job, lastJob) end)
     elseif Config.Framework == 'qb' or Config.Framework == 'qbx' then
         RegisterNetEvent('QBCore:Server:OnJobUpdate', function(src, job) OnJobChange(src, job, LastJobs[src]) end)
     end
